@@ -1,4 +1,5 @@
 <?php
+    
     header('Content-Type: application/json');
     //$pdo=new PDO("mysql:dbname=sistema;host=127.0.0.1","root","");
     $pdo=new PDO('mysql:host=127.0.0.1;dbname=sistema;charset=UTF8','root','');
@@ -7,6 +8,7 @@
     switch($accion){
         case 'agregar':
             //Instrucción de agregado
+            echo $_POST['title'];   
             $sentenciaSQL = $pdo->prepare("INSERT INTO eventos(title,descripcion,color,textColor,start,end,link) VALUES(:title,:descripcion,:color,:textColor,:start,:end,:link)");
 
             $respuesta=$sentenciaSQL->execute(array(
@@ -29,7 +31,7 @@
         case 'modificar':
             //Instrucción de modificar
             echo "Instrucción modificar";
-
+            break;
         default:
                 $sentenciaSQL = $pdo->prepare("SELECT * FROM eventos");
                 $sentenciaSQL->execute();

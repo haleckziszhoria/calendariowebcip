@@ -45,7 +45,8 @@
                     
                 },
                 dayClick:function(date,jsEvent,view){
-                    $('#txtFecha').val(date.format());
+                    $('#txtFecha').val(date.format("Y-MM-DD"));
+                    $('#txtHora').val(date.format("HH:mm:ss"));
                     $('#ModalEventos').modal();
                 },
                 
@@ -89,9 +90,10 @@
                 Fecha: <input type="text" id="txtFecha" name="txtFecha"/> <br/>
                 Titulo: <input type="text" id="txtTitulo"/> <br/>
                 Hora: <input type="text" id="txtHora" value="10:30"/> <br/>
-                Descripcion: <textarea id="txtDescripcion" rows="3"></textarea> <br/>
+                Descripcion: <textarea id="txtDescripcion" rows="3"></textarea> <br/> -->
+                <!-- Descripcion: <input type="text" id="txtDescripcion" name="txtDescripcion"/> <br/>-->
                 Color: <input type="color" id="txtColor" value="#ff0000"/> <br/>
-                Link: <input type="text" id="txtLink" name="txtLink"/> <br/>
+                Link: <input type="url" id="txtLink" name="txtLink"/> <br/>
             </div>
             <div class="modal-footer">
                 <button type="button" id="btnAgregar"class="btn btn-success" >Agregar</button>
@@ -118,19 +120,24 @@
                 title: $('#txtTitulo').val(),
                 start: $('#txtFecha').val()+" "+$('#txtHora').val(),
                 color: $('#txtColor').val(),
-                descripcion: $('txtDescripcion').val(),
+                descripcion: $('#txtDescripcion').val(),
                 textColor: "#FFFFFF",
                 end: $('#txtFecha').val()+" "+$('#txtHora').val(),
                 link: $('#txtLink').val()
             };
+
+            return NuevoEvento;
         }
         
         function EnviarInformacion(accion,objEvento){
+            console.log(objEvento);
+            console.log(accion);
             $.ajax({
                 type:'POST',
                 url: 'eventos.php?accion='+accion,
                 data: objEvento,
                 success:function(msg){
+                    
                     if(msg){
                         $('#CalendarioWeb').fullCalendar('refetchEvents');
                         $('#ModalEventos').modal('toggle');
@@ -147,5 +154,5 @@
 
     </script>
 
-</body>
+</body> 
 </html>
